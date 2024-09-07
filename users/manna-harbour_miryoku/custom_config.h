@@ -5,3 +5,10 @@
 
 #pragma once
 
+// clang-format off
+#define MIRYOKU_LAYER_MOUSE \
+U_NA,    U_NA,    U_NA,    U_NA,    ACIR,         U_NA,    U_NA,    UGRV,    UCIR,    U_NA,   \
+AGRV,    U_NA,    U_NA,    U_NA,    U_NA,         U_NA,    EAIG,    EGRV,    ICIR,    OCIR,   \
+ACIR,    U_NA,    CCED,    U_NA,    U_NA,         U_NA,    ETRM,    ECIR,    U_NA,    U_NA,   \
+U_NP,    U_NP,    U_NA,    U_NA,    U_NA,         U_NA,    U_NA,    U_NA,    U_NP,    U_NP
+// clang-format on
