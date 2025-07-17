@@ -1,0 +1,10 @@
+#pragma once
+
+#define SERIAL_USART_FULL_DUPLEX // Enable full duplex operation mode.
+#define SERIAL_USART_TX_PIN GP12
+#define SERIAL_USART_RX_PIN GP13
+
+/* RP2040- and hardware-specific config */
+#define RP2040_BOOTLOADER_DOUBLE_TAP_RESET // Activates the double-tap behavior
+#define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 500U
+#define PICO_XOSC_STARTUP_DELAY_MULTIPLIER 64
