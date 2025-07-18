@@ -89,3 +89,38 @@ KC_F10,         KC_F1,      KC_F2,      KC_F3,      KC_PAUS,                    
     ),
     // clang-format on
 };
+
+enum accent_keycodes {
+    E_AIG = SAFE_RANGE,
+    E_GRV,
+    E_TRM,
+    E_CIR,
+    A_AIG,
+    A_GRV,
+    A_TRM,
+    A_CIR,
+    I_AIG,
+    I_GRV,
+    I_TRM,
+    I_CIR,
+    O_AIG,
+    O_GRV,
+    O_TRM,
+    O_CIR,
+    U_AIG,
+    U_GRV,
+    U_TRM,
+    U_CIR,
+};
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case E_AIG:
+            if (record->event.pressed) {
+                SEND_STRING(SS_TAP(KC_GRV) SS_TAP(KC_E));
+            }
+            return false;
+    }
+
+    return true;
+}
