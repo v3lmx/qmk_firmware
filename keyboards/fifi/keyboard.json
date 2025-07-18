@@ -51,10 +51,10 @@
         "vid": "0xFEED"
     },
     "layout_aliases": {
-        "LAYOUT": "LAYOUT_split_3x5_3_ex2"
+        "LAYOUT": "LAYOUT_v3lmx"
     },
     "layouts": {
-        "LAYOUT_split_3x5_3_ex2": {
+        "LAYOUT_v3lmx": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0.3},
                 {"matrix": [0, 1], "x": 1, "y": 0.1},
