@@ -5,7 +5,7 @@
 enum layer_names {
     _BASE,
     _NAV,
-    _MOUSE,
+    _ACC,
     _MEDIA,
     _NUM,
     _SYM,
@@ -14,7 +14,7 @@ enum layer_names {
 
 #define U_BASE MO(_BASE)
 #define U_NAV MO(_NAV)
-#define U_MOUSE MO(_MOUSE)
+#define U_ACC MO(_ACC)
 #define U_MEDIA MO(_MEDIA)
 #define U_NUM MO(_NUM)
 #define U_SYM MO(_SYM)
@@ -31,6 +31,29 @@ enum {
     TD_BOOT,
 };
 
+enum accent_keycodes {
+    A_AIG = SAFE_RANGE,
+    A_GRV,
+    A_TRM,
+    A_CIR,
+    E_AIG,
+    E_GRV,
+    E_TRM,
+    E_CIR,
+    I_AIG,
+    I_GRV,
+    I_TRM,
+    I_CIR,
+    O_AIG,
+    O_GRV,
+    O_TRM,
+    O_CIR,
+    U_AIG,
+    U_GRV,
+    U_TRM,
+    U_CIR,
+};
+
 // Tap Dance definitions
 tap_dance_action_t tap_dance_actions[] = {
     // Tap once for Escape, twice for Caps Lock
@@ -43,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 KC_Q,           KC_W,               KC_F,           KC_P,               KC_B,   KC_NO,          KC_NO,  KC_J,       KC_L,           KC_U,           KC_Y,           KC_QUOT,        \
 LGUI_T(KC_A),   LALT_T(KC_R),       LCTL_T(KC_S),   LSFT_T(KC_T),       KC_G,   KC_NO,          KC_NO,  KC_M,       LSFT_T(KC_N),   LCTL_T(KC_E),   LALT_T(KC_I),   LGUI_T(KC_O),   \
 KC_Z,           ALGR_T(KC_X),       KC_C,           KC_D,               KC_V,                           KC_K,       KC_H,           KC_COMM,        ALGR_T(KC_DOT), KC_SLSH,        \
-                        LT(U_MEDIA,KC_ESC), LT(U_NAV,KC_SPC), LT(U_MOUSE,KC_TAB),                   LT(U_SYM,KC_ENT), LT(U_NUM,KC_BSPC), LT(U_FUN,KC_DEL)
+                        LT(U_MEDIA,KC_ESC), LT(U_NAV,KC_SPC), LT(U_ACC,KC_TAB),                   LT(U_SYM,KC_ENT), LT(U_NUM,KC_BSPC), LT(U_FUN,KC_DEL)
     ),
 
     [_NAV] = LAYOUT_v3lmx( // NAV
@@ -53,10 +76,10 @@ KC_NO,          KC_ALGR,    KC_NO,      KC_NO,      KC_NO,                      
                             KC_NO,      KC_NO,      KC_NO,                              KC_ENT,         KC_BSPC,    KC_DEL
     ),
 
-    [_MOUSE] = LAYOUT_v3lmx( // MOUSE
-TD(TD_BOOT),    KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,          KC_NO,  U_RDO,          U_PST,      U_CPY,      U_CUT,      U_UND,          \
-KC_LGUI,        KC_LALT,    KC_LCTL,    KC_LSFT,    KC_NO,      KC_NO,          KC_NO,  KC_NO,          KC_MS_L,    KC_MS_D,    KC_MS_U,    KC_MS_R,        \
-KC_NO,          KC_ALGR,    KC_NO,      KC_NO,      KC_NO,                              KC_NO,          KC_WH_L,    KC_WH_D,    KC_WH_U,    KC_WH_R,        \
+    [_ACC] = LAYOUT_v3lmx( // MOUSE
+TD(TD_BOOT),    KC_NO,      KC_NO,      KC_NO,      E_GRV,      KC_NO,          KC_NO,  U_RDO,          U_CIR,      U_GRV,      U_TRM,      U_UND,          \
+A_GRV,          A_CIR,      KC_LCTL,    KC_LSFT,    E_TRM,      KC_NO,          KC_NO,  E_GRV,          E_AIG,      KC_MS_D,    I_CIR,      O_CIR,        \
+KC_NO,          KC_ALGR,    KC_NO,      KC_NO,      E_CIR,                              E_CIR,          E_TRM,      KC_WH_D,    I_TRM,      O_TRM,        \
                             KC_NO,      KC_NO,      KC_NO,                              KC_BTN2,        KC_BTN1,    KC_BTN3
     ),
 
@@ -90,34 +113,111 @@ KC_F10,         KC_F1,      KC_F2,      KC_F3,      KC_PAUS,                    
     // clang-format on
 };
 
-enum accent_keycodes {
-    E_AIG = SAFE_RANGE,
-    E_GRV,
-    E_TRM,
-    E_CIR,
-    A_AIG,
-    A_GRV,
-    A_TRM,
-    A_CIR,
-    I_AIG,
-    I_GRV,
-    I_TRM,
-    I_CIR,
-    O_AIG,
-    O_GRV,
-    O_TRM,
-    O_CIR,
-    U_AIG,
-    U_GRV,
-    U_TRM,
-    U_CIR,
-};
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
+        // A
+        case A_AIG:
+            if (record->event.pressed) {
+                SEND_STRING(SS_ALGR("'") "a");
+            }
+            return false;
+        case A_GRV:
+            if (record->event.pressed) {
+                SEND_STRING(SS_ALGR("`") "a");
+            }
+            return false;
+        case A_TRM:
+            if (record->event.pressed) {
+                SEND_STRING(SS_ALGR("\"") "a");
+            }
+            return false;
+        case A_CIR:
+            if (record->event.pressed) {
+                SEND_STRING(SS_ALGR("6") "a");
+            }
+            return false;
+        // E
         case E_AIG:
             if (record->event.pressed) {
-                SEND_STRING(SS_TAP(KC_GRV) SS_TAP(KC_E));
+                SEND_STRING(SS_ALGR("'") "e");
+            }
+            return false;
+        case E_GRV:
+            if (record->event.pressed) {
+                SEND_STRING(SS_ALGR("`") "e");
+            }
+            return false;
+        case E_TRM:
+            if (record->event.pressed) {
+                SEND_STRING(SS_ALGR("\"") "e");
+            }
+            return false;
+        case E_CIR:
+            if (record->event.pressed) {
+                SEND_STRING(SS_ALGR("6") "e");
+            }
+            return false;
+        // I
+        case I_AIG:
+            if (record->event.pressed) {
+                SEND_STRING(SS_ALGR("'") "i");
+            }
+            return false;
+        case I_GRV:
+            if (record->event.pressed) {
+                SEND_STRING(SS_ALGR("`") "i");
+            }
+            return false;
+        case I_TRM:
+            if (record->event.pressed) {
+                SEND_STRING(SS_ALGR("\"") "i");
+            }
+            return false;
+        case I_CIR:
+            if (record->event.pressed) {
+                SEND_STRING(SS_ALGR("6") "i");
+            }
+            return false;
+        // O
+        case O_AIG:
+            if (record->event.pressed) {
+                SEND_STRING(SS_ALGR("'") "o");
+            }
+            return false;
+        case O_GRV:
+            if (record->event.pressed) {
+                SEND_STRING(SS_ALGR("`") "o");
+            }
+            return false;
+        case O_TRM:
+            if (record->event.pressed) {
+                SEND_STRING(SS_ALGR("\"") "o");
+            }
+            return false;
+        case O_CIR:
+            if (record->event.pressed) {
+                SEND_STRING(SS_ALGR("6") "o");
+            }
+            return false;
+        // U
+        case U_AIG:
+            if (record->event.pressed) {
+                SEND_STRING(SS_ALGR("'") "u");
+            }
+            return false;
+        case U_GRV:
+            if (record->event.pressed) {
+                SEND_STRING(SS_ALGR("`") "u");
+            }
+            return false;
+        case U_TRM:
+            if (record->event.pressed) {
+                SEND_STRING(SS_ALGR("\"") "u");
+            }
+            return false;
+        case U_CIR:
+            if (record->event.pressed) {
+                SEND_STRING(SS_ALGR("6") "u");
             }
             return false;
     }
